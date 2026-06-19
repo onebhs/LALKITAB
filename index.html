@@ -298,6 +298,37 @@
   }
   .house-block .planet-line:first-of-type { border-top: none; margin-top: 6px; padding-top: 0; }
 
+  /* ---------- Lal Kitab Touch box (authentic planet signifier) ---------- */
+  .lk-touch-box {
+    border: 1.5px solid var(--gold);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-top: 12px;
+    background: linear-gradient(135deg, #FBF1E0, #FFFDF7);
+  }
+  .lk-touch-header {
+    color: var(--maroon);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  .lk-touch-row {
+    margin-bottom: 6px;
+    line-height: 1.8;
+  }
+  .lk-touch-label {
+    color: var(--gold-deep);
+    font-weight: bold;
+    margin-left: 6px;
+  }
+  .lk-touch-note {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--line);
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.9;
+  }
+
   /* ---------- Remedies ---------- */
   .remedy-list { list-style: none; }
   .remedy-list li {
@@ -332,6 +363,29 @@
     border-color: var(--gold);
     background: #fdf3e2;
     color: var(--maroon);
+  }
+
+  .duration-remedy-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .duration-remedy-item:last-child { border-bottom: none; }
+  .duration-tag {
+    flex-shrink: 0;
+    background: var(--bg);
+    border: 1px solid var(--gold);
+    color: var(--gold-deep);
+    font-size: 0.88rem;
+    padding: 5px 12px;
+    border-radius: 16px;
+    white-space: nowrap;
+  }
+  .duration-remedy-item .action-text {
+    flex: 1;
+    line-height: 1.9;
   }
 
   .day-table {
@@ -573,6 +627,13 @@
 
   <!-- ============ TAB: REMEDIES ============ -->
   <section id="tab-remedies">
+    <div class="card">
+      <h2>روزمرہ زندگی کی تدابیر</h2>
+      <div class="note-box" id="everydayIntro"></div>
+      <div id="everydayPills"></div>
+      <div id="everydayContent" style="margin-top:18px;"></div>
+    </div>
+
     <div class="card">
       <h2>سیارہ منتخب کریں</h2>
       <div id="planetPills"></div>
@@ -1455,49 +1516,167 @@ const EXPANDED_REMEDIES = {
   SUN: {
     sadqa: "گندم، گڑ، یا تانبے کے برتن جیسی اشیاء کا صدقہ کریں۔",
     zikr: "یا قَوِیُّ (اللہ کے قوت والے نام کا ورد) — 100 بار، صبح کے وقت۔",
-    parhez: "تکبر، سخت لہجہ اور بلاوجہ غصے سے اجتناب کریں۔"
+    parhez: "تکبر، سخت لہجہ اور بلاوجہ غصے سے اجتناب کریں۔",
+    lalKitabTouch: { color: "سرخ اور تانبے کا رنگ", item: "تانبہ", number: 1, note: "لال کتاب میں سورج کی نشانی تانبہ ہے۔ روایتی طور پر تانبے کا سکہ بہتے پانی میں بہایا جاتا تھا — ہم اس کے بجائے تانبے کا کوئی برتن یا اس کی قیمت اتوار کے دن صدقہ کرنے کی تجویز دیتے ہیں، 43 دن تک تسلسل سے۔" }
   },
   MOON: {
     sadqa: "دودھ، چینی، چاول یا سفید کپڑے کا صدقہ کریں۔",
     zikr: "یا لطیف — 100 بار، رات کے وقت دل کے سکون کے لیے۔",
-    parhez: "بے چینی اور بے سکونی والے ماحول سے دوری رکھیں، نیند کا وقت متعین کریں۔"
+    parhez: "بے چینی اور بے سکونی والے ماحول سے دوری رکھیں، نیند کا وقت متعین کریں۔",
+    lalKitabTouch: { color: "سفید", item: "چاندی، چاول، دودھ", number: 2, note: "لال کتاب میں چاند کی نشانی چاندی اور سفید اشیاء ہیں۔ روایتی طور پر دودھ یا چاول بہتے پانی میں بہائے جاتے تھے — ہم اس کے بجائے یہ اشیاء پیر کے دن غرباء میں صدقہ کرنے کی تجویز دیتے ہیں، 43 دن تک تسلسل سے۔" }
   },
   MARS: {
     sadqa: "مسور کی دال، یا سرخ پھل غرباء میں تقسیم کریں۔",
     zikr: "یا حَلِیمُ — 100 بار، غصے پر قابو پانے کے لیے۔",
-    parhez: "بحث و تکرار اور جلد بازی کے فیصلوں سے اجتناب کریں۔"
+    parhez: "بحث و تکرار اور جلد بازی کے فیصلوں سے اجتناب کریں۔",
+    lalKitabTouch: { color: "سرخ", item: "مسور کی دال", number: 9, note: "لال کتاب میں مریخ کی نشانی مسور کی دال اور تانبہ ہے۔ روایتی طور پر مسور دال بہتے پانی میں بہائی جاتی تھی — ہم اس کے بجائے یہ دال منگل کے دن پکا کر غرباء میں صدقہ کرنے کی تجویز دیتے ہیں، 43 دن تک تسلسل سے۔" }
   },
   MERCURY: {
     sadqa: "سبز اشیاء، کتابیں یا تعلیمی سامان کا صدقہ کریں۔",
     zikr: "یا عَلِیمُ — 100 بار، ذہنی وضاحت کے لیے۔",
-    parhez: "جھوٹ، غیبت اور بے فائدہ گفتگو سے مکمل پرہیز کریں۔"
+    parhez: "جھوٹ، غیبت اور بے فائدہ گفتگو سے مکمل پرہیز کریں۔",
+    lalKitabTouch: { color: "سبز", item: "سبز دانے یا سبز کپڑا", number: 5, note: "لال کتاب میں عطارد کی نشانی سبز رنگ اور سوراخ والا تانبے کا سکہ ہے۔ ہم اس کی روح کو برقرار رکھتے ہوئے بدھ کے دن سبز رنگ کی اشیاء یا تعلیمی سامان غرباء و طلباء میں صدقہ کرنے کی تجویز دیتے ہیں، 43 دن تک تسلسل سے۔" }
   },
   JUPITER: {
     sadqa: "زرد اشیاء، چنے کی دال یا کتابیں صدقہ کریں۔",
     zikr: "یا رَزَّاقُ — 100 بار، رزق میں برکت کے لیے۔",
-    parhez: "علم کو دکھاوے یا غرور کے لیے استعمال نہ کریں۔"
+    parhez: "علم کو دکھاوے یا غرور کے لیے استعمال نہ کریں۔",
+    lalKitabTouch: { color: "زرد (پیلا)", item: "چنے کی دال، ہلدی", number: 3, note: "لال کتاب میں جوپیٹر کی نشانی زرد رنگ، چنے کی دال اور ہلدی ہے۔ ہم اسی نشانی کو برقرار رکھتے ہوئے جمعرات کے دن یہ اشیاء غرباء میں صدقہ کرنے کی تجویز دیتے ہیں، 43 دن تک تسلسل سے۔" }
   },
   VENUS: {
     sadqa: "سفید مٹھائی، خوشبو یا کپڑے کا صدقہ کریں۔",
     zikr: "یا وَدُودُ — 100 بار، تعلقات میں محبت کے لیے۔",
-    parhez: "فضول خرچی اور دکھاوے سے اجتناب کریں۔"
+    parhez: "فضول خرچی اور دکھاوے سے اجتناب کریں۔",
+    lalKitabTouch: { color: "سفید", item: "خوشبو، سفید مٹھائی", number: 6, note: "لال کتاب میں زہرہ کی نشانی سفید رنگ اور خوشبودار اشیاء ہیں۔ ہم اسی نشانی کو برقرار رکھتے ہوئے جمعہ کے دن یہ اشیاء صدقہ کرنے کی تجویز دیتے ہیں، 43 دن تک تسلسل سے۔" }
   },
   SATURN: {
     sadqa: "کالی دال (ماش)، تیل یا کمبل کا صدقہ کریں۔",
     zikr: "یا صَبُورُ — 100 بار، صبر کے لیے۔",
-    parhez: "سستی اور وقت کے ضیاع سے اجتناب کریں۔"
+    parhez: "سستی اور وقت کے ضیاع سے اجتناب کریں۔",
+    lalKitabTouch: { color: "کالا", item: "لوہا، سرسوں کا تیل، کالی دال", number: 8, note: "لال کتاب میں زحل کی نشانی لوہا، کالا رنگ اور سرسوں کا تیل ہے۔ ہم اسی نشانی کو برقرار رکھتے ہوئے ہفتہ کے دن یہ اشیاء غرباء میں صدقہ کرنے کی تجویز دیتے ہیں، 43 دن تک تسلسل سے۔" }
   },
   RAHU: {
     sadqa: "کمبل، جوتے یا تل کا صدقہ کریں۔",
     zikr: "معوذتین (سورۃ الفلق و الناس) — صبح و شام۔",
-    parhez: "بے بنیاد وہم اور خوف کو دل میں جگہ نہ دیں۔"
+    parhez: "بے بنیاد وہم اور خوف کو دل میں جگہ نہ دیں۔",
+    lalKitabTouch: { color: "دھواں دار/مٹیالا", item: "مولی، جو (بارلی)", number: 4, note: "لال کتاب میں راہو کی نشانی مولی اور جو ہے۔ روایتی طور پر یہ بہتے پانی میں بہائے جاتے تھے — ہم اس کے بجائے یہ اشیاء ہفتہ کے دن غرباء میں صدقہ کرنے کی تجویز دیتے ہیں، 43 دن تک تسلسل سے۔" }
   },
   KETU: {
     sadqa: "خفیہ صدقہ (پوشیدہ طور پر) دیں۔",
     zikr: "لَا اِلٰہَ اِلَّا اللّٰہ — کثرت سے۔",
-    parhez: "ضرورت سے زیادہ تنہائی اور دنیا سے کٹاؤ سے گریز کریں۔"
+    parhez: "ضرورت سے زیادہ تنہائی اور دنیا سے کٹاؤ سے گریز کریں۔",
+    lalKitabTouch: { color: "بھورا/خاکی", item: "تل کے بیج، کمبل", number: 7, note: "لال کتاب میں کیتو کی نشانی تل کے بیج اور کمبل ہے۔ ہم اسی نشانی کو برقرار رکھتے ہوئے یہ اشیاء خفیہ صدقہ کے طور پر دینے کی تجویز دیتے ہیں، 43 دن تک تسلسل سے۔" }
   }
 };
+
+/* ===========================================================
+   ROZMARRA ZINDAGI KI TADABEER — Everyday Life Remedies
+   Lal Kitab is famous for simple, practical "totke" tied to
+   specific days, durations, and charity-type actions for
+   common life problems (money, marriage, children, career,
+   debts, enemies, health, travel). The traditional versions of
+   these totke are heavily tied to Hindu deity worship, temple
+   rituals, and items offered to idols — none of which are
+   included here. Instead, this section keeps only the secular
+   STRUCTURE that makes Lal Kitab remedies distinctive (specific
+   weekday, a fixed duration such as 11/21/40 days, and a
+   charity or self-discipline based action) and fills it
+   entirely with Quran/Sunnah-based content: sadqa, dua, zikr,
+   and good conduct — matching the same everyday-problem
+   categories Lal Kitab traditionally addresses.
+   =========================================================== */
+const EVERYDAY_REMEDIES = {
+  MONEY: {
+    title: "مالی تنگی اور رزق میں کشادگی کے لیے",
+    icon: "💰",
+    lalKitabNote: "لال کتاب میں مالی معاملات دوسرے اور گیارہویں گھر، اور جوپیٹر و زہرہ سے جڑے ہیں۔ ان سیاروں کی نشانی زرد اور سفید رنگ ہے — صدقہ میں یہی رنگ کی اشیاء (چنے کی دال، سفید چاول) ترجیح دیں۔",
+    items: [
+      { duration: "21 دن", action: "ہر روز فجر کے بعد سورۃ الواقعہ کی تلاوت کریں — رزق میں برکت کے لیے یہ ایک مسلسل معمول بنائیں، چاہے تھوڑی دیر ہی پڑھیں۔" },
+      { duration: "11 جمعہ", action: "ہر جمعہ نماز سے پہلے کسی ضرورت مند کو تھوڑی رقم یا کھانا صدقہ کریں، اور لگاتار 11 جمعے اس پر قائم رہیں۔" },
+      { duration: "40 دن", action: "روزانہ صبح ' یَا رَزَّاقُ ' کا 100 بار ورد کریں، اور حلال کمائی کی نیت پختہ رکھیں۔" },
+      { duration: "ہر دن", action: "گھر میں صفائی اور سادگی کا خاص خیال رکھیں — نبی کریم ﷺ کی سنت کے مطابق صاف ستھرا گھر برکت کا باعث ہے۔" }
+    ]
+  },
+  MARRIAGE: {
+    title: "رشتے میں تاخیر اور ازدواجی ہم آہنگی کے لیے",
+    icon: "💍",
+    lalKitabNote: "لال کتاب میں ساتواں گھر اور زہرہ ازدواجی معاملات کے مالک ہیں۔ زہرہ کی نشانی سفید رنگ اور خوشبو ہے — جمعہ کے دن صفائی، خوشبو اور سفید اشیاء کا صدقہ اس معاملے میں خاص اہمیت رکھتا ہے۔",
+    items: [
+      { duration: "21 دن", action: "روزانہ نماز فجر کے بعد سورۃ مریم کی تلاوت کریں اور اللہ سے نیک جوڑے کے لیے دعا کریں۔" },
+      { duration: "ہر جمعہ", action: "والدین کی دعا حاصل کریں اور ان سے رشتے کی بات میں مشورہ لیتے رہیں — والدین کی رضا میں بڑی برکت ہے۔" },
+      { duration: "40 دن", action: "روزانہ ' یَا وَدُودُ ' کا ورد کریں، اور ازدواجی تعلقات میں نرمی، صبر اور حسنِ سلوک کو اپنائیں۔" },
+      { duration: "مستقل", action: "صدقہ اور نیک اعمال جاری رکھیں، اور غیب کے فیصلے پر صبر کے ساتھ توکل علی اللہ رکھیں۔" }
+    ]
+  },
+  CHILDREN: {
+    title: "اولاد اور بچوں کی تعلیم کے لیے",
+    icon: "📚",
+    lalKitabNote: "لال کتاب میں پانچواں گھر اولاد اور تعلیم کا مالک ہے، اور عطارد و جوپیٹر ذہانت کے سیارے ہیں۔ ان کی نشانی سبز اور زرد رنگ ہے — بدھ یا جمعرات کے دن تعلیمی سامان یا متعلقہ رنگ کی اشیاء صدقہ کرنا روایتی طور پر تجویز کیا جاتا ہے۔",
+    items: [
+      { duration: "ہر امتحان سے پہلے", action: "بچے کو امتحان سے پہلے سورۃ الفاتحہ اور آیت الکرسی پڑھ کر دم کریں، اور پُرسکون رہنے کی تلقین کریں۔" },
+      { duration: "روزانہ", action: "بچوں کے ساتھ مل کر مختصر دعائیں یاد کرائیں، خصوصاً علم میں برکت کی دعا: رَبِّ زِدْنِی عِلْمًا۔" },
+      { duration: "21 دن", action: "بچے کی تعلیمی کمزوری کے لیے روزانہ ' یَا عَلِیمُ ' کا ورد کریں اور بچے کو پُرسکون ماحول فراہم کریں۔" },
+      { duration: "مستقل", action: "بچوں سے نرمی اور حوصلہ افزائی سے بات کریں، ڈانٹ ڈپٹ کے بجائے رہنمائی کا انداز اپنائیں — یہی نبوی طریقہ تربیت ہے۔" }
+    ]
+  },
+  TRAVEL: {
+    title: "سفر، بیرونِ ملک سیٹلمنٹ اور ویزا کے معاملات کے لیے",
+    icon: "✈️",
+    lalKitabNote: "لال کتاب میں سفر اور بیرونِ ملک معاملات کا تعلق نویں گھر اور راہو سے ہے۔ راہو کی نشانی مولی اور دھواں دار رنگ ہے — ہفتہ کے دن غرباء میں کھانا یا اشیاء صدقہ کرنا روایتی طور پر سفر کی رکاوٹیں دور کرنے کے لیے تجویز کیا جاتا ہے۔",
+    items: [
+      { duration: "سفر سے پہلے", action: "دعائے سفر پڑھیں: اللّٰھُمَّ اِنَّا نَسْاَلُکَ فِی سَفَرِنَا ھٰذَا الْبِرَّ وَالتَّقْویٰ، اور دو رکعت نفل ادا کریں۔" },
+      { duration: "21 دن", action: "ویزا یا کاغذی کارروائی میں رکاوٹ کی صورت میں روزانہ سورۃ یٰسین کی تلاوت کریں اور آسانی کی دعا کریں۔" },
+      { duration: "ہر جمعہ", action: "سفر کی کامیابی کے لیے صدقہ کریں، خصوصاً سفر سے پہلے کے آخری جمعہ کو۔" },
+      { duration: "مستقل", action: "حلال ذریعہ اور درست کاغذات پر بھروسہ رکھیں، استخارہ کریں اور نتیجہ اللہ پر چھوڑ دیں۔" }
+    ]
+  },
+  CAREER: {
+    title: "ملازمت، کاروبار اور ترقی کے لیے",
+    icon: "💼",
+    lalKitabNote: "لال کتاب میں دسواں گھر کام اور روزگار کا مالک ہے، اور سورج و زحل اس سے جڑے ہیں۔ زحل کی نشانی لوہا اور کالا رنگ ہے — ہفتہ کے دن سرسوں کا تیل یا لوہے سے بنی اشیاء صدقہ کرنا روایتی طور پر ترقی میں رکاوٹیں دور کرنے کے لیے تجویز کیا جاتا ہے۔",
+    items: [
+      { duration: "43 دن", action: "روزانہ صبح کام پر جانے سے پہلے ' یَا فَتَّاحُ ' کا ورد کریں — نئے دروازے کھلنے کی دعا کے ساتھ۔" },
+      { duration: "11 دن", action: "ملازمت کے انٹرویو یا کسی اہم کاروباری فیصلے سے پہلے دو رکعت نماز استخارہ ادا کریں۔" },
+      { duration: "ہر ہفتہ", action: "ہفتہ کے دن غرباء کی مدد کریں — یہ زحل سے متعلق معاملات (رکاوٹ، تاخیر) میں نرمی لاتا ہے۔" },
+      { duration: "مستقل", action: "دیانتداری اور وقت کی پابندی کو شعار بنائیں، اور کام میں سستی سے اجتناب کریں۔" }
+    ]
+  },
+  DEBT_ENEMY: {
+    title: "قرض اور دشمنوں کی مشکلات سے نجات کے لیے",
+    icon: "🛡️",
+    lalKitabNote: "لال کتاب میں چھٹا گھر قرض اور دشمنی کا مالک ہے، اور مریخ اس سے جڑا ہے۔ مریخ کی نشانی مسور کی دال اور سرخ رنگ ہے — منگل کے دن یہ اشیاء صدقہ کرنا روایتی طور پر دشمنوں پر غلبہ اور قرض سے نجات کے لیے تجویز کیا جاتا ہے۔",
+    items: [
+      { duration: "21 دن", action: "روزانہ آیت الکرسی اور معوذتین (سورۃ الفلق و الناس) کی تلاوت کریں — حفاظت اور سکون کے لیے۔" },
+      { duration: "ہر منگل", action: "منگل کے دن صدقہ کریں اور قرض کی ادائیگی کے لیے رزقِ حلال میں برکت کی دعا کریں: اللّٰھُمَّ اکْفِنِی بِحَلَالِکَ عَنْ حَرَامِکَ۔" },
+      { duration: "40 دن", action: "روزانہ ' یَا قَوِیُّ یَا مَتِینُ ' کا ورد کریں، اور دشمنوں کے بارے میں بدگمانی یا انتقام کے بجائے صبر اور دعا کا رویہ اپنائیں۔" },
+      { duration: "مستقل", action: "جھگڑے اور دشمنی سے دور رہنے کی کوشش کریں، اور تعلقات بحال کرنے میں پہل کریں جہاں ممکن ہو۔" }
+    ]
+  },
+  HEALTH: {
+    title: "صحت اور ذہنی سکون کے لیے",
+    icon: "🌿",
+    lalKitabNote: "لال کتاب میں صحت کا تعلق پہلے اور چھٹے گھر، اور سورج و چاند سے ہے۔ سورج کی نشانی تانبہ اور چاند کی نشانی چاندی/سفید ہے — اتوار اور پیر کے دن ان رنگوں کی اشیاء صدقہ کرنا روایتی طور پر صحت کی بحالی کے لیے تجویز کیا جاتا ہے۔",
+    items: [
+      { duration: "روزانہ", action: "صبح و شام سورۃ الفاتحہ، آیت الکرسی اور معوذتین کی تلاوت معمول بنائیں — یہ مجموعی صحت اور تحفظ کے لیے نبوی معمول ہے۔" },
+      { duration: "ہر دن", action: "کھانے میں اعتدال اور سادگی اپنائیں، اور سونے سے پہلے وضو کرنے کی سنت پر عمل کریں۔" },
+      { duration: "21 دن", action: "ذہنی پریشانی کی صورت میں روزانہ ' یَا سَلَامُ ' کا ورد کریں، اور سکون کے لیے ذکر میں وقت گزاریں۔" },
+      { duration: "مستقل", action: "بیماری میں صبر کے ساتھ علاج کرائیں — دعا اور علاج دونوں کو ساتھ رکھیں، شفا اللہ کی طرف سے ہے۔" }
+    ]
+  },
+  FAMILY: {
+    title: "خاندانی ہم آہنگی اور گھریلو سکون کے لیے",
+    icon: "🏠",
+    lalKitabNote: "لال کتاب میں چوتھا گھر گھریلو سکون کا مالک ہے، اور چاند و زہرہ اس سے جڑے ہیں۔ ان کی نشانی سفید رنگ ہے — پیر اور جمعہ کے دن سفید اشیاء (دودھ، چاول، خوشبو) صدقہ کرنا روایتی طور پر گھریلو ہم آہنگی کے لیے تجویز کیا جاتا ہے۔",
+    items: [
+      { duration: "ہر دن", action: "گھر میں داخل ہوتے وقت سلام اور بسم اللہ کہنے کی عادت بنائیں — یہ گھر میں برکت اور سکون کا ذریعہ ہے۔" },
+      { duration: "ہر جمعرات", action: "خاندان کے بڑوں کی خدمت اور صلہ رحمی کا خاص خیال رکھیں، اور رشتہ داروں سے رابطہ بحال رکھیں۔" },
+      { duration: "21 دن", action: "گھریلو ناچاقی کی صورت میں روزانہ سورۃ یٰسین کی تلاوت اور پورے گھر والوں کے لیے دعائے خیر کریں۔" },
+      { duration: "مستقل", action: "گھر میں جھگڑے سے بچیں، نرمی اور برداشت کو معمول بنائیں، اور باہمی معاملات میں عدل سے کام لیں۔" }
+    ]
+  }
+};
+
+const EVERYDAY_REMEDIES_INTRO = "لال کتاب کی روایت میں روزمرہ زندگی کے مسائل — مالی تنگی، رشتے کی تاخیر، اولاد کی تعلیم، سفر کی رکاوٹیں، ملازمت، قرض اور دشمنی — کے لیے سادہ اور قابلِ عمل تدابیر تجویز کی جاتی ہیں، جو اکثر کسی خاص دن، مخصوص مدت، اور صدقہ جیسے عمل پر مبنی ہوتی ہیں۔ ہم نے اسی روایتی ساخت کو برقرار رکھتے ہوئے، روایتی رسومات کے بجائے انہی ایام اور مدتوں کو قرآن، دعا اور صدقہ جیسے اسلامی اعمال سے بھر دیا ہے، تاکہ تدابیر آپ کے ایمان اور اقدار سے مکمل ہم آہنگ رہیں۔";
 
 </script>
 <script>
@@ -1944,6 +2123,18 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       block.appendChild(ul);
 
+      const touch = EXPANDED_REMEDIES[pname] && EXPANDED_REMEDIES[pname].lalKitabTouch;
+      if (touch) {
+        const touchLine = document.createElement('p');
+        touchLine.style.marginTop = '10px';
+        touchLine.style.paddingTop = '10px';
+        touchLine.style.borderTop = '1px dashed var(--line)';
+        touchLine.style.color = 'var(--ink-soft)';
+        touchLine.style.fontSize = '0.95rem';
+        touchLine.innerHTML = `🪔 <strong>لال کتاب کی نشانی:</strong> رنگ ${touch.color}، اشیاء ${touch.item} — یہ اشیاء صدقہ کریں۔`;
+        block.appendChild(touchLine);
+      }
+
       container.appendChild(block);
     });
 
@@ -2155,6 +2346,65 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ---------- Remedies Tab ---------- */
+
+  /* Everyday Life Remedies (category-based) */
+  document.getElementById('everydayIntro').textContent = EVERYDAY_REMEDIES_INTRO;
+  const everydayPillsContainer = document.getElementById('everydayPills');
+  const everydayContent = document.getElementById('everydayContent');
+  const everydayOrder = ['MONEY','MARRIAGE','CHILDREN','TRAVEL','CAREER','DEBT_ENEMY','HEALTH','FAMILY'];
+
+  everydayOrder.forEach(key => {
+    const cat = EVERYDAY_REMEDIES[key];
+    const pill = document.createElement('span');
+    pill.className = 'planet-pill';
+    pill.dataset.category = key;
+    pill.innerHTML = `${cat.icon} ${cat.title}`;
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('#everydayPills .planet-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      showEverydayRemedy(key);
+    });
+    everydayPillsContainer.appendChild(pill);
+  });
+
+  function showEverydayRemedy(key) {
+    const cat = EVERYDAY_REMEDIES[key];
+    everydayContent.innerHTML = '';
+
+    const h3 = document.createElement('h3');
+    h3.innerHTML = `${cat.icon} ${cat.title}`;
+    everydayContent.appendChild(h3);
+
+    if (cat.lalKitabNote) {
+      const lkBox = document.createElement('div');
+      lkBox.className = 'lk-touch-box';
+      lkBox.style.marginBottom = '14px';
+      lkBox.innerHTML = `<div class="lk-touch-header">🪔 لال کتاب کا تعلق</div><div class="lk-touch-note" style="border-top:none; padding-top:0; margin-top:0;">${cat.lalKitabNote}</div>`;
+      everydayContent.appendChild(lkBox);
+    }
+
+    cat.items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'duration-remedy-item';
+
+      const tag = document.createElement('span');
+      tag.className = 'duration-tag';
+      tag.textContent = item.duration;
+
+      const text = document.createElement('div');
+      text.className = 'action-text';
+      text.textContent = item.action;
+
+      row.appendChild(tag);
+      row.appendChild(text);
+      everydayContent.appendChild(row);
+    });
+  }
+
+  everydayPillsContainer.firstChild.classList.add('active');
+  showEverydayRemedy('MONEY');
+
+  /* Planet-specific remedies */
   const planetPillsContainer = document.getElementById('planetPills');
   const remedyContent = document.getElementById('remedyContent');
   const order = ['SUN','MOON','MARS','MERCURY','JUPITER','VENUS','SATURN','RAHU','KETU'];
@@ -2210,6 +2460,21 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.appendChild(box);
       });
       expContainer.appendChild(grid);
+
+      // Lal Kitab Touch — authentic planet signifier (color, item, number) reframed as Islamic sadqa
+      if (expanded.lalKitabTouch) {
+        const lk = expanded.lalKitabTouch;
+        const lkBox = document.createElement('div');
+        lkBox.className = 'lk-touch-box';
+        lkBox.innerHTML = `
+          <div class="lk-touch-header">🪔 لال کتاب کی اصل نشانی</div>
+          <div class="lk-touch-row"><span class="lk-touch-label">رنگ:</span> ${lk.color}</div>
+          <div class="lk-touch-row"><span class="lk-touch-label">اشیاء:</span> ${lk.item}</div>
+          <div class="lk-touch-row"><span class="lk-touch-label">عدد:</span> ${lk.number}</div>
+          <div class="lk-touch-note">${lk.note}</div>
+        `;
+        expContainer.appendChild(lkBox);
+      }
     }
   }
 
